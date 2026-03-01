@@ -1,0 +1,287 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────────────────
+// USUARIO
+// ─────────────────────────────────────────
+model Usuario {
+  id               String    @id @default(cuid())
+  email            String    @unique
+  nombre           String
+  telefono         String?
+  rol              Rol       @default(CLIENTE)
+  idioma           String    @default("es")
+  moneda           String    @default("EUR")
+  dietaPreferencia String[]
+  puntos           Int       @default(0)
+  noShowCount      Int       @default(0)
+  altoRiesgo       Boolean   @default(false)
+  creadoEn         DateTime  @default(now())
+  actualizadoEn    DateTime  @updatedAt
+
+  reservasMesa     ReservaMesa[]
+  reservasBolsa    ReservaBolsa[]
+  resenasMesa      ResenaMesa[]
+  resenasBolsa     ResenaBolsa[]
+  restaurante      Restaurante?
+}
+
+enum Rol {
+  CLIENTE
+  RESTAURANTE
+  ADMIN
+}
+
+// ─────────────────────────────────────────
+// RESTAURANTE
+// ─────────────────────────────────────────
+model Restaurante {
+  id              String    @id @default(cuid())
+  managerId       String    @unique
+  manager         Usuario   @relation(fields: [managerId], references: [id])
+
+  nombre          String
+  descripcion     String?
+  direccion       String
+  ciudad          String
+  barrio          String?
+  lat             Float?
+  lng             Float?
+  telefono        String?
+  email           String?
+  sitioWeb        String?
+  tipoCocina      String[]
+  precioMedio     Int       // 1=€, 2=€€, 3=€€€, 4=€€€€
+  capacidadTotal  Int
+  estado          EstadoRestaurante @default(ACTIVO)
+
+  servicios       Json      @default("{}")  // terraza, grupos, ninos, takeaway, etc.
+  fotos           String[]
+
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime  @updatedAt
+
+  turnos          Turno[]
+  promos          Promocion[]
+  reservasMesa    ReservaMesa[]
+  plantillasBolsa BolsaSorpresaPlantilla[]
+  publicaciones   PublicacionBolsa[]
+}
+
+enum EstadoRestaurante {
+  ACTIVO
+  PAUSADO
+  PENDIENTE
+}
+
+// ─────────────────────────────────────────
+// TURNOS Y DISPONIBILIDAD
+// ─────────────────────────────────────────
+model Turno {
+  id              String    @id @default(cuid())
+  restauranteId   String
+  restaurante     Restaurante @relation(fields: [restauranteId], references: [id])
+
+  nombre          String    // "Comida", "Cena"
+  diasSemana      Int[]     // 0=Dom, 1=Lun, ..., 6=Sab
+  horaInicio      String    // "13:00"
+  horaFin         String    // "16:00"
+  intervaloMin    Int       @default(30) // 15 o 30
+  capacidad       Int
+
+  activo          Boolean   @default(true)
+  creadoEn        DateTime  @default(now())
+}
+
+// ─────────────────────────────────────────
+// PROMOCIONES
+// ─────────────────────────────────────────
+model Promocion {
+  id              String    @id @default(cuid())
+  restauranteId   String
+  restaurante     Restaurante @relation(fields: [restauranteId], references: [id])
+
+  nombre          String
+  tipo            TipoPromo
+  valor           Float     // % o importe fijo
+  condiciones     String?
+  fechaInicio     DateTime?
+  fechaFin        DateTime?
+  diasSemana      Int[]
+  horaInicio      String?
+  horaFin         String?
+  estado          EstadoPromo @default(ACTIVA)
+
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime  @updatedAt
+
+  reservasMesa    ReservaMesa[]
+}
+
+enum TipoPromo {
+  PORCENTAJE
+  IMPORTE_FIJO
+  MENU_ESPECIAL
+}
+
+enum EstadoPromo {
+  ACTIVA
+  PAUSADA
+  EXPIRADA
+}
+
+// ─────────────────────────────────────────
+// RESERVAS DE MESA
+// ─────────────────────────────────────────
+model ReservaMesa {
+  id              String    @id @default(cuid())
+  clienteId       String
+  cliente         Usuario   @relation(fields: [clienteId], references: [id])
+  restauranteId   String
+  restaurante     Restaurante @relation(fields: [restauranteId], references: [id])
+  promocionId     String?
+  promocion       Promocion? @relation(fields: [promocionId], references: [id])
+
+  fecha           DateTime
+  hora            String    // "14:00"
+  comensales      Int
+  estado          EstadoReserva @default(CONFIRMADA)
+  codigo          String    @unique @default(cuid())
+  notas           String?
+
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime  @updatedAt
+
+  resena          ResenaMesa?
+}
+
+enum EstadoReserva {
+  CONFIRMADA
+  MODIFICADA
+  CANCELADA
+  COMPLETADA
+  NO_SHOW
+}
+
+// ─────────────────────────────────────────
+// RESEÑAS DE MESA
+// ─────────────────────────────────────────
+model ResenaMesa {
+  id              String    @id @default(cuid())
+  reservaId       String    @unique
+  reserva         ReservaMesa @relation(fields: [reservaId], references: [id])
+  clienteId       String
+  cliente         Usuario   @relation(fields: [clienteId], references: [id])
+
+  rating          Int       // 1-5
+  comentario      String?
+  creadoEn        DateTime  @default(now())
+}
+
+// ─────────────────────────────────────────
+// BOLSAS SORPRESA - PLANTILLA
+// ─────────────────────────────────────────
+model BolsaSorpresaPlantilla {
+  id              String    @id @default(cuid())
+  restauranteId   String
+  restaurante     Restaurante @relation(fields: [restauranteId], references: [id])
+
+  nombre          String
+  descripcion     String?
+  precio          Float
+  valorEstimado   Float
+  etiquetasDieta  String[]  // vegano, vegetariano, sin-gluten, etc.
+  tipComida       String[]  // desayuno, comida, cena, repostería, etc.
+  condiciones     String?
+  politicaReembolso String?
+
+  activa          Boolean   @default(true)
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime  @updatedAt
+
+  publicaciones   PublicacionBolsa[]
+}
+
+// ─────────────────────────────────────────
+// BOLSAS SORPRESA - PUBLICACIÓN DIARIA
+// ─────────────────────────────────────────
+model PublicacionBolsa {
+  id              String    @id @default(cuid())
+  restauranteId   String
+  restaurante     Restaurante @relation(fields: [restauranteId], references: [id])
+  plantillaId     String
+  plantilla       BolsaSorpresaPlantilla @relation(fields: [plantillaId], references: [id])
+
+  fecha           DateTime
+  franjaInicio    String    // "19:00"
+  franjaFin       String    // "21:00"
+  unidadesTotales Int
+  unidadesVendidas Int      @default(0)
+  estado          EstadoPublicacion @default(ACTIVA)
+
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime  @updatedAt
+
+  reservas        ReservaBolsa[]
+}
+
+enum EstadoPublicacion {
+  ACTIVA
+  FINALIZADA
+  CANCELADA
+}
+
+// ─────────────────────────────────────────
+// RESERVAS DE BOLSA
+// ─────────────────────────────────────────
+model ReservaBolsa {
+  id              String    @id @default(cuid())
+  clienteId       String
+  cliente         Usuario   @relation(fields: [clienteId], references: [id])
+  publicacionId   String
+  publicacion     PublicacionBolsa @relation(fields: [publicacionId], references: [id])
+
+  unidades        Int       @default(1)
+  estado          EstadoBolsa @default(PENDIENTE)
+  codigo          String    @unique @default(cuid())
+  metodoPago      MetodoPago @default(PREPAGO)
+
+  creadoEn        DateTime  @default(now())
+  actualizadoEn   DateTime  @updatedAt
+
+  resena          ResenaBolsa?
+}
+
+enum EstadoBolsa {
+  PENDIENTE
+  ENTREGADA
+  NO_RECOGIDA
+  CANCELADA
+}
+
+enum MetodoPago {
+  PREPAGO
+  PAGO_EN_LOCAL
+}
+
+// ─────────────────────────────────────────
+// RESEÑAS DE BOLSA
+// ─────────────────────────────────────────
+model ResenaBolsa {
+  id              String    @id @default(cuid())
+  reservaId       String    @unique
+  reserva         ReservaBolsa @relation(fields: [reservaId], references: [id])
+  clienteId       String
+  cliente         Usuario   @relation(fields: [clienteId], references: [id])
+
+  rating          Int       // 1-5
+  comentario      String?
+  creadoEn        DateTime  @default(now())
+}
