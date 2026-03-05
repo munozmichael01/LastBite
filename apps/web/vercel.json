@@ -1,4 +1,3 @@
 {
-  "buildCommand": "(cd ../.. && pnpm --filter @lastbite/db run build) && next build",
   "installCommand": "cd ../.. && pnpm install"
 }
