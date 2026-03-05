@@ -52,15 +52,15 @@ const YESTERDAY = "2026-02-13"
 const TOMORROW  = "2026-02-15"
 const WEEK_DATES = ["2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16"]
 
-const dateFilters = [
+type DateFilterKey = "ayer" | "hoy" | "manana" | "semana" | "todos"
+
+const dateFilters: { key: DateFilterKey; label: string; dates: string[] | null }[] = [
   { key: "ayer",   label: "Ayer",        dates: [YESTERDAY] },
   { key: "hoy",    label: "Hoy",         dates: [TODAY] },
   { key: "manana", label: "Mañana",      dates: [TOMORROW] },
   { key: "semana", label: "Esta semana", dates: WEEK_DATES },
   { key: "todos",  label: "Todos",       dates: null },
-] as const
-
-type DateFilterKey = typeof dateFilters[number]["key"]
+]
 
 const allReservations: ManagerReservation[] = [
   { id: "R-001", name: "Maria Lopez",      email: "maria@email.com",   phone: "+34 612 345 678", guests: 4, date: TODAY,     time: "13:30", status: "confirmed", promotion: "-30% Almuerzo", code: "LB-A1B2" },
