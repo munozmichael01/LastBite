@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useState, use } from "react"
 import Link from "next/link"
 import { ArrowLeft, Leaf, Clock, MapPin, Check, ShoppingBag, Tag, QrCode } from "lucide-react"
@@ -92,10 +93,20 @@ export default function BagDetailPage({ params }: { params: Promise<{ id: string
         Volver a bolsas
       </Link>
 
-      <div className={`mt-4 h-48 rounded-xl bg-gradient-to-br ${bag.coverGradient} relative overflow-hidden`}>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Leaf className="h-16 w-16 text-white/20" />
-        </div>
+      <div className="relative mt-4 h-56 overflow-hidden rounded-xl">
+        {bag.image ? (
+          <Image
+            src={bag.image}
+            alt={bag.name}
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 672px) 100vw, 672px"
+          />
+        ) : (
+          <div className={`absolute inset-0 bg-gradient-to-br ${bag.coverGradient}`} />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
         <div className="absolute left-4 top-4">
           <Badge className="bg-secondary text-secondary-foreground text-lg font-bold px-3 py-1">
             -{bag.discount}%

@@ -18,7 +18,7 @@ export function Header() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  if (pathname.startsWith("/manager")) return null
+  if (pathname.startsWith("/manager") || pathname.startsWith("/mesa") || pathname.startsWith("/cocina")) return null
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">

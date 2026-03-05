@@ -139,7 +139,7 @@ export function SearchFiltersSheet(props: SearchFiltersProps) {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" size="sm" className="lg:hidden">
+        <Button variant="outline" size="sm">
           <SlidersHorizontal className="mr-2 h-4 w-4" />
           Filtros
           {totalActive > 0 && (

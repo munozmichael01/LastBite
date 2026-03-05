@@ -14,6 +14,7 @@ datasource db {
 model Usuario {
   id               String    @id @default(cuid())
   email            String    @unique
+  passwordHash     String?
   nombre           String
   telefono         String?
   rol              Rol       @default(CLIENTE)

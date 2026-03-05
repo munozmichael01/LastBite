@@ -7,9 +7,12 @@ import {
   Clock,
   ArrowUpRight,
   ArrowDownRight,
+  ChevronRight,
 } from "lucide-react"
+import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 
 const stats = [
   {
@@ -99,10 +102,17 @@ export default function ManagerDashboard() {
         {/* Upcoming Reservations */}
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Clock className="h-4 w-4 text-primary" />
-              Proximas reservas
-            </CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Clock className="h-4 w-4 text-primary" />
+                Próximas reservas
+              </CardTitle>
+              <Link href="/manager/reservas">
+                <Button variant="ghost" size="sm" className="h-7 gap-0.5 px-2 text-xs text-muted-foreground hover:text-foreground">
+                  Ver todas <ChevronRight className="h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            </div>
             <CardDescription>Reservas confirmadas para hoy</CardDescription>
           </CardHeader>
           <CardContent>
@@ -135,11 +145,18 @@ export default function ManagerDashboard() {
         {/* Recent Bag Sales */}
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-base">
-              <ShoppingBag className="h-4 w-4 text-secondary" />
-              Ventas de bolsas recientes
-            </CardTitle>
-            <CardDescription>Ultimas bolsas sorpresa vendidas</CardDescription>
+            <div className="flex items-center justify-between">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <ShoppingBag className="h-4 w-4 text-secondary" />
+                Ventas de bolsas recientes
+              </CardTitle>
+              <Link href="/manager/bolsas">
+                <Button variant="ghost" size="sm" className="h-7 gap-0.5 px-2 text-xs text-muted-foreground hover:text-foreground">
+                  Ver historial <ChevronRight className="h-3.5 w-3.5" />
+                </Button>
+              </Link>
+            </div>
+            <CardDescription>Últimas bolsas sorpresa vendidas</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-3">

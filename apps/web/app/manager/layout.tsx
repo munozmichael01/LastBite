@@ -12,6 +12,8 @@ import {
   Menu,
   X,
   ChevronLeft,
+  LayoutGrid,
+  BookOpen,
 } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
@@ -20,6 +22,8 @@ import { Button } from "@/components/ui/button"
 const navItems = [
   { href: "/manager", label: "Dashboard", icon: LayoutDashboard },
   { href: "/manager/reservas", label: "Reservas", icon: CalendarCheck },
+  { href: "/manager/mesas", label: "Mesas", icon: LayoutGrid },
+  { href: "/manager/carta", label: "Carta", icon: BookOpen },
   { href: "/manager/promociones", label: "Promociones", icon: Tag },
   { href: "/manager/bolsas", label: "Bolsas sorpresa", icon: ShoppingBag },
   { href: "/manager/estadisticas", label: "Estadisticas", icon: BarChart3 },

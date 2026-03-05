@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { signIn } from "next-auth/react"
 import { Eye, EyeOff, Mail, Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -16,14 +17,30 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      toast.success("Sesion iniciada correctamente")
-      router.push("/")
-    }, 1200)
+
+    const form = e.currentTarget
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value
+    const password = (form.elements.namedItem("password") as HTMLInputElement).value
+
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    })
+
+    setLoading(false)
+
+    if (result?.error) {
+      toast.error("Email o contrasena incorrectos")
+      return
+    }
+
+    toast.success("Sesion iniciada correctamente")
+    router.push("/")
+    router.refresh()
   }
 
   return (
@@ -44,6 +61,7 @@ export default function LoginPage() {
                 <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="tu@email.com"
                   className="pl-10"
@@ -62,6 +80,7 @@ export default function LoginPage() {
                 <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="********"
                   className="pl-10 pr-10"

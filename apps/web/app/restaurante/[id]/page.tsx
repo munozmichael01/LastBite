@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { MapPin, Phone, Clock, Star, Tag, Leaf, Utensils, ChevronRight, Wifi, Accessibility, Car, Users } from "lucide-react"
@@ -37,11 +38,22 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
   return (
     <div className="flex flex-col">
       {/* Cover */}
-      <div className={`relative h-52 bg-gradient-to-br ${restaurant.coverGradient} md:h-72`}>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-7xl font-bold text-white/20">{restaurant.name.charAt(0)}</span>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/40 to-transparent p-6">
+      <div className="relative h-52 overflow-hidden md:h-72">
+        {restaurant.image ? (
+          <Image
+            src={restaurant.image}
+            alt={restaurant.name}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        ) : (
+          <div className={`absolute inset-0 bg-gradient-to-br ${restaurant.coverGradient} flex items-center justify-center`}>
+            <span className="text-7xl font-bold text-white/20">{restaurant.name.charAt(0)}</span>
+          </div>
+        )}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-wrap items-center gap-2">
               {restaurant.cuisine.map((c) => (

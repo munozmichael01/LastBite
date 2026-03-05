@@ -16,7 +16,7 @@ const tabs = [
 export function MobileNav() {
   const pathname = usePathname()
 
-  if (pathname.startsWith("/manager")) return null
+  if (pathname.startsWith("/manager") || pathname.startsWith("/mesa") || pathname.startsWith("/cocina")) return null
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 md:hidden">

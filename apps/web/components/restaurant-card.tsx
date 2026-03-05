@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { Star, MapPin } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
@@ -11,10 +12,21 @@ export function RestaurantCard({ restaurant }: { restaurant: Restaurant }) {
   return (
     <Link href={`/restaurante/${restaurant.id}`}>
       <Card className="group overflow-hidden border-border transition-shadow hover:shadow-lg">
-        <div className={`relative h-40 bg-gradient-to-br ${restaurant.coverGradient}`}>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-4xl font-bold text-white/30">{restaurant.name.charAt(0)}</span>
-          </div>
+        <div className="relative h-44 overflow-hidden">
+          {restaurant.image ? (
+            <Image
+              src={restaurant.image}
+              alt={restaurant.name}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          ) : (
+            <div className={`absolute inset-0 bg-gradient-to-br ${restaurant.coverGradient} flex items-center justify-center`}>
+              <span className="text-4xl font-bold text-white/30">{restaurant.name.charAt(0)}</span>
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
           {activePromo && (
             <div className="absolute left-3 top-3">
               <Badge className="bg-accent text-accent-foreground shadow-sm">

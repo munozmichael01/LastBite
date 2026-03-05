@@ -16,6 +16,7 @@ export interface Restaurant {
   phone: string
   description: string
   coverGradient: string
+  image?: string
   features: string[]
   hours: { day: string; open: string; close: string }[]
   dietaryOptions: string[]
@@ -78,6 +79,7 @@ export interface SurplusBag {
   available: number
   total: number
   coverGradient: string
+  image?: string
   status: "available" | "sold_out" | "expired"
 }
 
@@ -105,6 +107,14 @@ export interface BagPurchase {
   pickupUntil: string
   status: "pending_pickup" | "picked_up" | "expired"
   code: string
+}
+
+export interface Mesa {
+  id: string
+  restauranteId: string
+  numero: number
+  capacidad: number
+  estado: "libre" | "ocupada" | "reservada"
 }
 
 export interface UserProfile {
@@ -136,6 +146,7 @@ export const restaurants: Restaurant[] = [
     phone: "+34 912 345 678",
     description: "Taberna castiza con toques modernos en pleno Chamberi. Tapas creativas elaboradas con producto de temporada, amplia seleccion de vinos naturales y un ambiente acogedor que te hara sentir como en casa.",
     coverGradient: "from-orange-400 via-red-400 to-rose-500",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=500&fit=crop&q=80",
     features: ["Terraza", "WiFi", "Accesible", "Grupos"],
     hours: [
       { day: "Lun-Jue", open: "12:00", close: "00:00" },
@@ -160,24 +171,24 @@ export const restaurants: Restaurant[] = [
       {
         name: "Tapas",
         items: [
-          { id: "m1", name: "Patatas bravas", description: "Con salsa brava casera y alioli", price: 6.5 },
-          { id: "m2", name: "Croquetas de jamon", description: "Croquetas cremosas de jamon iberico (6 uds)", price: 9, dietary: ["Sin gluten"] },
-          { id: "m3", name: "Pulpo a la gallega", description: "Con pimenton de la Vera y aceite de oliva", price: 14 },
-          { id: "m4", name: "Tortilla espanola", description: "Jugosa, con cebolla caramelizada", price: 8 },
+          { id: "m1", name: "Patatas bravas", description: "Con salsa brava casera y alioli", price: 6.5, image: "https://images.unsplash.com/photo-1573680156791-e76e0f82a594?w=400&h=300&fit=crop&q=80" },
+          { id: "m2", name: "Croquetas de jamon", description: "Croquetas cremosas de jamon iberico (6 uds)", price: 9, dietary: ["Sin gluten"], image: "https://images.unsplash.com/photo-1515443961218-a51367888e4b?w=400&h=300&fit=crop&q=80" },
+          { id: "m3", name: "Pulpo a la gallega", description: "Con pimenton de la Vera y aceite de oliva", price: 14, image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop&q=80" },
+          { id: "m4", name: "Tortilla espanola", description: "Jugosa, con cebolla caramelizada", price: 8, image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=300&fit=crop&q=80" },
         ],
       },
       {
         name: "Principales",
         items: [
-          { id: "m5", name: "Rabo de toro", description: "Estofado lentamente con verduras de temporada", price: 18 },
-          { id: "m6", name: "Merluza a la plancha", description: "Con verduritas salteadas y salsa verde", price: 16, dietary: ["Sin gluten"] },
+          { id: "m5", name: "Rabo de toro", description: "Estofado lentamente con verduras de temporada", price: 18, image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop&q=80" },
+          { id: "m6", name: "Merluza a la plancha", description: "Con verduritas salteadas y salsa verde", price: 16, dietary: ["Sin gluten"], image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=300&fit=crop&q=80" },
         ],
       },
       {
         name: "Postres",
         items: [
-          { id: "m7", name: "Torrija", description: "Con helado de canela y miel", price: 7 },
-          { id: "m8", name: "Tarta de queso", description: "Estilo vasco, cremosa y sin fondo", price: 6.5 },
+          { id: "m7", name: "Torrija", description: "Con helado de canela y miel", price: 7, image: "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop&q=80" },
+          { id: "m8", name: "Tarta de queso", description: "Estilo vasco, cremosa y sin fondo", price: 6.5, image: "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=400&h=300&fit=crop&q=80" },
         ],
       },
     ],
@@ -199,6 +210,7 @@ export const restaurants: Restaurant[] = [
     phone: "+34 933 456 789",
     description: "Experiencia gastronomica japonesa con influencias mediterraneas. Omakase del chef, rolls creativos y una seleccion de sakes premium en un espacio minimalista y elegante.",
     coverGradient: "from-slate-600 via-zinc-700 to-neutral-800",
+    image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&h=500&fit=crop&q=80",
     features: ["Barra de sushi", "Sake bar", "Accesible"],
     hours: [
       { day: "Mar-Sab", open: "13:00", close: "16:00" },
@@ -260,6 +272,7 @@ export const restaurants: Restaurant[] = [
     phone: "+34 914 567 890",
     description: "Autentica cocina italiana en el corazon de Salamanca. Pasta fresca hecha a diario, pizzas en horno de lena napolitano y una bodega con los mejores vinos italianos.",
     coverGradient: "from-amber-400 via-orange-400 to-red-400",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&h=500&fit=crop&q=80",
     features: ["Horno de lena", "Terraza", "WiFi", "Grupos", "Accesible"],
     hours: [
       { day: "Lun-Dom", open: "13:00", close: "16:00" },
@@ -331,6 +344,7 @@ export const restaurants: Restaurant[] = [
     phone: "+34 935 678 901",
     description: "Cocina plant-based creativa con ingredientes ecologicos de proximidad. Platos que sorprenden incluso a los mas carnivoros, con propuestas que celebran la sostenibilidad.",
     coverGradient: "from-emerald-400 via-green-500 to-teal-500",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=500&fit=crop&q=80",
     features: ["Terraza", "Ecologico", "Sin residuos", "WiFi"],
     hours: [
       { day: "Mar-Dom", open: "12:00", close: "16:00" },
@@ -384,6 +398,7 @@ export const restaurants: Restaurant[] = [
     phone: "+34 916 789 012",
     description: "Asador de referencia en Madrid con mas de 30 anos de historia. Carnes a la brasa con denominacion de origen, pescados del dia y una bodega excepcional con mas de 400 referencias.",
     coverGradient: "from-red-700 via-rose-800 to-red-900",
+    image: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800&h=500&fit=crop&q=80",
     features: ["Bodega premium", "Salon privado", "Accesible", "Parking"],
     hours: [
       { day: "Lun-Sab", open: "13:00", close: "16:00" },
@@ -426,6 +441,7 @@ export const restaurants: Restaurant[] = [
     phone: "+34 937 890 123",
     description: "Los mejores mariscos y pescados frescos de las rias gallegas directos a tu mesa. Mariscada para compartir, arroces marineros y vinos blancos seleccionados.",
     coverGradient: "from-blue-400 via-cyan-500 to-teal-400",
+    image: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?w=800&h=500&fit=crop&q=80",
     features: ["Terraza", "Vista al mar", "Accesible", "Grupos"],
     hours: [
       { day: "Mar-Dom", open: "13:00", close: "16:30" },
@@ -590,6 +606,7 @@ export const surplusBags: SurplusBag[] = [
     available: 3,
     total: 5,
     coverGradient: "from-orange-400 to-red-400",
+    image: "https://images.unsplash.com/photo-1533777857889-4be7c70b33f7?w=600&h=400&fit=crop&q=80",
     status: "available",
   },
   {
@@ -607,6 +624,7 @@ export const surplusBags: SurplusBag[] = [
     available: 2,
     total: 4,
     coverGradient: "from-amber-400 to-orange-400",
+    image: "https://images.unsplash.com/photo-1498579150354-977475b7ea0b?w=600&h=400&fit=crop&q=80",
     status: "available",
   },
   {
@@ -624,6 +642,7 @@ export const surplusBags: SurplusBag[] = [
     available: 4,
     total: 6,
     coverGradient: "from-emerald-400 to-teal-400",
+    image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&h=400&fit=crop&q=80",
     status: "available",
   },
   {
@@ -641,6 +660,7 @@ export const surplusBags: SurplusBag[] = [
     available: 1,
     total: 3,
     coverGradient: "from-blue-400 to-cyan-400",
+    image: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?w=600&h=400&fit=crop&q=80",
     status: "available",
   },
   {
@@ -658,6 +678,7 @@ export const surplusBags: SurplusBag[] = [
     available: 0,
     total: 2,
     coverGradient: "from-slate-500 to-zinc-600",
+    image: "https://images.unsplash.com/photo-1617196034183-421b4040d74d?w=600&h=400&fit=crop&q=80",
     status: "sold_out",
   },
 ]
@@ -831,4 +852,25 @@ export function priceRangeLabel(range: number): string {
 
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" }).format(amount)
+}
+
+// ---- MESAS ----
+
+export const mesas: Mesa[] = [
+  { id: "t1", restauranteId: "1", numero: 1, capacidad: 2, estado: "libre" },
+  { id: "t2", restauranteId: "1", numero: 2, capacidad: 4, estado: "ocupada" },
+  { id: "t3", restauranteId: "1", numero: 3, capacidad: 4, estado: "ocupada" },
+  { id: "t4", restauranteId: "1", numero: 4, capacidad: 6, estado: "reservada" },
+  { id: "t5", restauranteId: "1", numero: 5, capacidad: 2, estado: "libre" },
+  { id: "t6", restauranteId: "1", numero: 6, capacidad: 8, estado: "libre" },
+  { id: "t7", restauranteId: "1", numero: 7, capacidad: 4, estado: "ocupada" },
+  { id: "t8", restauranteId: "1", numero: 8, capacidad: 2, estado: "libre" },
+]
+
+export function getMesa(id: string): Mesa | undefined {
+  return mesas.find((m) => m.id === id)
+}
+
+export function getMesasByRestaurante(restauranteId: string): Mesa[] {
+  return mesas.filter((m) => m.restauranteId === restauranteId)
 }
