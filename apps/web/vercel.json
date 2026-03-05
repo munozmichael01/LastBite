@@ -1,5 +1,4 @@
 {
-  "buildCommand": "cd ../.. && pnpm turbo run build --filter=web",
-  "installCommand": "cd ../.. && pnpm install",
-  "outputDirectory": ".next"
+  "buildCommand": "(cd ../.. && pnpm --filter @lastbite/db run build) && next build",
+  "installCommand": "cd ../.. && pnpm install"
 }
