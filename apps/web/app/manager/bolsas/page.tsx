@@ -357,28 +357,28 @@ export default function ManagerBolsasPage() {
 
           return (
             <>
-              <div className="mb-5 grid grid-cols-3 gap-3">
-                <div className="rounded-xl border border-border bg-card p-4 text-center">
+              <div className="mb-5 grid grid-cols-3 gap-2">
+                <div className="rounded-xl border border-border bg-card p-2 sm:p-4 text-center">
                   <div className="mb-1 flex justify-center">
                     <ShoppingBag className="h-4 w-4 text-secondary" />
                   </div>
-                  <p className="text-2xl font-bold text-foreground">{totalUnidades}</p>
+                  <p className="text-lg sm:text-2xl font-bold text-foreground">{totalUnidades}</p>
                   <p className="mt-0.5 text-xs text-muted-foreground">Bolsas vendidas</p>
                 </div>
-                <div className="rounded-xl border border-border bg-card p-4 text-center">
+                <div className="rounded-xl border border-border bg-card p-2 sm:p-4 text-center">
                   <div className="mb-1 flex justify-center">
                     <Euro className="h-4 w-4 text-primary" />
                   </div>
-                  <p className="text-xl font-bold text-foreground tabular-nums whitespace-nowrap">
+                  <p className="text-sm sm:text-xl font-bold text-foreground tabular-nums">
                     {totalIngresos.toFixed(2).replace(".", ",")} €
                   </p>
                   <p className="mt-0.5 text-xs text-muted-foreground">Ingresos</p>
                 </div>
-                <div className="rounded-xl border border-border bg-card p-4 text-center">
+                <div className="rounded-xl border border-border bg-card p-2 sm:p-4 text-center">
                   <div className="mb-1 flex justify-center">
                     <TrendingUp className="h-4 w-4 text-accent" />
                   </div>
-                  <p className="text-xl font-bold text-foreground tabular-nums whitespace-nowrap">
+                  <p className="text-sm sm:text-xl font-bold text-foreground tabular-nums">
                     {ticketMedio.toFixed(2).replace(".", ",")} €
                   </p>
                   <p className="mt-0.5 text-xs text-muted-foreground">Ticket medio</p>
