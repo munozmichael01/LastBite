@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
-import { Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, User, Phone, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -19,11 +19,14 @@ export default function RegistroPage() {
   const [loading, setLoading] = useState(false)
   const [accepted, setAccepted] = useState(false)
   const [activeTab, setActiveTab] = useState<"cliente" | "restaurante">("cliente")
+  const [formError, setFormError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setFormError(null)
+
     if (!accepted) {
-      toast.error("Debes aceptar los términos y condiciones")
+      setFormError("Debes aceptar los términos y condiciones para continuar.")
       return
     }
 
@@ -49,22 +52,26 @@ export default function RegistroPage() {
       const data = await res.json()
 
       if (!res.ok) {
-        toast.error(data.error ?? "Error al crear la cuenta")
+        const msg = data.error ?? "Error al crear la cuenta"
+        setFormError(msg)
+        toast.error(msg)
         return
       }
 
       const login = await signIn("credentials", { email, password, redirect: false })
       if (login?.error) {
-        toast.success("Cuenta creada. Inicia sesion.")
+        toast.success("¡Cuenta creada! Inicia sesión para continuar.")
         router.push("/auth/login")
         return
       }
 
-      toast.success("Cuenta creada correctamente. ¡Bienvenido!")
+      toast.success("¡Cuenta creada correctamente! Bienvenido a Last Bite.")
       router.push(activeTab === "restaurante" ? "/manager" : "/")
       router.refresh()
     } catch {
-      toast.error("Error de conexion. Intentalo de nuevo.")
+      const msg = "Error de conexión. Verifica tu internet e inténtalo de nuevo."
+      setFormError(msg)
+      toast.error(msg)
     } finally {
       setLoading(false)
     }
@@ -89,7 +96,7 @@ export default function RegistroPage() {
 
             {/* ── Cliente ── */}
             <TabsContent value="cliente">
-              <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
+              <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4" onChange={() => setFormError(null)}>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex flex-col gap-2">
                     <Label htmlFor="nombre">Nombre</Label>
@@ -144,6 +151,12 @@ export default function RegistroPage() {
                     <Link href="#" className="text-primary hover:underline">política de privacidad</Link>
                   </Label>
                 </div>
+                {formError && (
+                  <div className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2.5 text-sm text-destructive">
+                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                    <span>{formError}</span>
+                  </div>
+                )}
                 <Button type="submit" className="mt-1 w-full" disabled={loading}>
                   {loading ? "Creando cuenta..." : "Crear cuenta"}
                 </Button>
@@ -152,7 +165,7 @@ export default function RegistroPage() {
 
             {/* ── Restaurante ── */}
             <TabsContent value="restaurante">
-              <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
+              <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4" onChange={() => setFormError(null)}>
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="nombre-r">Nombre del restaurante</Label>
                   <Input id="nombre-r" name="nombre-r" placeholder="Mi Restaurante" required />
@@ -205,6 +218,12 @@ export default function RegistroPage() {
                     <Link href="#" className="text-primary hover:underline">política de privacidad</Link>
                   </Label>
                 </div>
+                {formError && (
+                  <div className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2.5 text-sm text-destructive">
+                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                    <span>{formError}</span>
+                  </div>
+                )}
                 <Button type="submit" className="mt-1 w-full" disabled={loading}>
                   {loading ? "Registrando restaurante..." : "Registrar restaurante"}
                 </Button>

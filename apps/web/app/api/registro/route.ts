@@ -12,12 +12,12 @@ export async function POST(req: Request) {
     }
 
     if (password.length < 8) {
-      return NextResponse.json({ error: "La contrasena debe tener al menos 8 caracteres" }, { status: 400 })
+      return NextResponse.json({ error: "La contraseña debe tener al menos 8 caracteres" }, { status: 400 })
     }
 
     const existing = await prisma.usuario.findUnique({ where: { email } })
     if (existing) {
-      return NextResponse.json({ error: "Ya existe una cuenta con ese email" }, { status: 409 })
+      return NextResponse.json({ error: "Ya existe una cuenta con ese correo electrónico" }, { status: 409 })
     }
 
     const passwordHash = await hash(password, 12)
@@ -34,7 +34,38 @@ export async function POST(req: Request) {
     })
 
     return NextResponse.json({ user: usuario }, { status: 201 })
-  } catch {
-    return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 })
+  } catch (err) {
+    console.error("[/api/registro] Error:", err)
+
+    // Prisma: violación de constraint único (email duplicado llegando por race condition)
+    if (
+      typeof err === "object" &&
+      err !== null &&
+      "code" in err &&
+      (err as { code: string }).code === "P2002"
+    ) {
+      return NextResponse.json(
+        { error: "Ya existe una cuenta con ese correo electrónico" },
+        { status: 409 }
+      )
+    }
+
+    // Prisma: no puede conectar a la base de datos
+    if (
+      typeof err === "object" &&
+      err !== null &&
+      "code" in err &&
+      ["P1001", "P1002", "P1003"].includes((err as { code: string }).code)
+    ) {
+      return NextResponse.json(
+        { error: "No se pudo conectar a la base de datos. Inténtalo en unos minutos." },
+        { status: 503 }
+      )
+    }
+
+    return NextResponse.json(
+      { error: "Error interno del servidor. Inténtalo de nuevo." },
+      { status: 500 }
+    )
   }
 }
