@@ -8,14 +8,14 @@ import { BagCard } from "@/components/bag-card"
 import { restaurants, surplusBags } from "@/lib/mock-data"
 
 const CUISINE_CATEGORIES = [
-  { emoji: "🥘", label: "Española",   gradient: "from-orange-50 to-amber-100",  filter: "Espanola" },
-  { emoji: "🍕", label: "Italiana",   gradient: "from-red-50 to-orange-100",    filter: "Italiana" },
-  { emoji: "🍣", label: "Japonesa",   gradient: "from-slate-50 to-zinc-100",    filter: "Japonesa" },
-  { emoji: "🥗", label: "Veggie",     gradient: "from-green-50 to-emerald-100", filter: "Vegetariana" },
-  { emoji: "🦐", label: "Mariscos",   gradient: "from-blue-50 to-cyan-100",     filter: "Marisqueria" },
-  { emoji: "🥩", label: "Asador",     gradient: "from-rose-50 to-red-100",      filter: "Asador" },
-  { emoji: "🌮", label: "Fusión",     gradient: "from-purple-50 to-pink-100",   filter: "Fusion" },
-  { emoji: "🌿", label: "Ecológico",  gradient: "from-teal-50 to-green-100",    filter: "Ecologica" },
+  { emoji: "🥩", label: "Parrilla",       gradient: "from-rose-50 to-red-100",      filter: "Parrilla" },
+  { emoji: "🇻🇪", label: "Criolla",       gradient: "from-amber-50 to-yellow-100",  filter: "Criolla" },
+  { emoji: "🌊", label: "Mariscos",       gradient: "from-blue-50 to-cyan-100",     filter: "Mariscos" },
+  { emoji: "🍣", label: "Japonesa",       gradient: "from-slate-50 to-zinc-100",    filter: "Japonesa" },
+  { emoji: "🍝", label: "Italiana",       gradient: "from-red-50 to-orange-100",    filter: "Italiana" },
+  { emoji: "🌍", label: "Internacional",  gradient: "from-orange-50 to-amber-100",  filter: "Internacional" },
+  { emoji: "🥗", label: "Vegetariana",    gradient: "from-green-50 to-emerald-100", filter: "Vegetariana" },
+  { emoji: "🌮", label: "Fusion",         gradient: "from-purple-50 to-pink-100",   filter: "Fusion" },
 ]
 
 export default function HomePage() {

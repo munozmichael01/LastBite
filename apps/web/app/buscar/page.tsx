@@ -13,14 +13,14 @@ import { restaurants } from "@/lib/mock-data"
 type SortOption = "rating" | "price_asc" | "price_desc" | "reviews"
 
 const CUISINE_CATEGORIES = [
-  { emoji: "🥘", label: "Española",   gradient: "from-orange-50 to-amber-100",  value: "Espanola" },
-  { emoji: "🍕", label: "Italiana",   gradient: "from-red-50 to-orange-100",    value: "Italiana" },
-  { emoji: "🍣", label: "Japonesa",   gradient: "from-slate-50 to-zinc-100",    value: "Japonesa" },
-  { emoji: "🥗", label: "Veggie",     gradient: "from-green-50 to-emerald-100", value: "Vegetariana" },
-  { emoji: "🦐", label: "Mariscos",   gradient: "from-blue-50 to-cyan-100",     value: "Marisqueria" },
-  { emoji: "🥩", label: "Asador",     gradient: "from-rose-50 to-red-100",      value: "Asador" },
-  { emoji: "🌮", label: "Fusión",     gradient: "from-purple-50 to-pink-100",   value: "Fusion" },
-  { emoji: "🌿", label: "Ecológico",  gradient: "from-teal-50 to-green-100",    value: "Ecologica" },
+  { emoji: "🥩", label: "Parrilla",       gradient: "from-rose-50 to-red-100",      value: "Parrilla" },
+  { emoji: "🇻🇪", label: "Criolla",       gradient: "from-amber-50 to-yellow-100",  value: "Criolla" },
+  { emoji: "🌊", label: "Mariscos",       gradient: "from-blue-50 to-cyan-100",     value: "Mariscos" },
+  { emoji: "🍣", label: "Japonesa",       gradient: "from-slate-50 to-zinc-100",    value: "Japonesa" },
+  { emoji: "🍝", label: "Italiana",       gradient: "from-red-50 to-orange-100",    value: "Italiana" },
+  { emoji: "🌍", label: "Internacional",  gradient: "from-orange-50 to-amber-100",  value: "Internacional" },
+  { emoji: "🥗", label: "Vegetariana",    gradient: "from-green-50 to-emerald-100", value: "Vegetariana" },
+  { emoji: "🌮", label: "Fusion",         gradient: "from-purple-50 to-pink-100",   value: "Fusion" },
 ]
 
 function SearchPageInner() {
