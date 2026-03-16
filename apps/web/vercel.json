@@ -1,5 +1,5 @@
 {
   "framework": "nextjs",
-  "installCommand": "cd ../.. && pnpm install",
+  "installCommand": "cd ../.. && pnpm install && pnpm --filter @lastbite/db run build",
   "outputDirectory": ".next"
 }

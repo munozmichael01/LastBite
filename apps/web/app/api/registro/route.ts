@@ -35,7 +35,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ user: usuario }, { status: 201 })
   } catch (err) {
-    console.error("[/api/registro] Error:", err)
+    const errObj = err as Record<string, unknown>
+    console.error("[/api/registro] Error completo:", {
+      message: errObj?.message,
+      code: errObj?.code,
+      name: errObj?.name,
+      stack: errObj?.stack,
+    })
 
     // Prisma: violación de constraint único (email duplicado llegando por race condition)
     if (

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "postinstall": "pnpm --filter @lastbite/db run build"
   },
   "devDependencies": {
     "turbo": "^2.8.12",
