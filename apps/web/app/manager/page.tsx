@@ -208,7 +208,7 @@ export default function ManagerDashboard() {
         <CardContent>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { label: "Nueva promocion", desc: "Crea un descuento para atraer comensales", href: "/manager/promociones" },
+              { label: "Nueva promoción", desc: "Crea un descuento para atraer más comensales", href: "/manager/promociones" },
               { label: "Publicar bolsa sorpresa", desc: "Reduce desperdicio y gana ingresos extra", href: "/manager/bolsas" },
               { label: "Gestionar horarios", desc: "Ajusta los turnos y capacidad del restaurante", href: "/manager/ajustes" },
               { label: "Ver estadisticas", desc: "Analiza el rendimiento de tu restaurante", href: "/manager/estadisticas" },

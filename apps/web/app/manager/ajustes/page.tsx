@@ -111,7 +111,7 @@ export default function ManagerAjustesPage() {
           <CardContent className="flex flex-col gap-4">
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="phone">Telefono</Label>
+                <Label htmlFor="phone">Teléfono</Label>
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input id="phone" defaultValue="+34 914 567 890" className="pl-10" />

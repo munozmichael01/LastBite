@@ -36,11 +36,11 @@ function LoginForm() {
     setLoading(false)
 
     if (result?.error) {
-      toast.error("Email o contrasena incorrectos")
+      toast.error("Email o contraseña incorrectos")
       return
     }
 
-    toast.success("Sesion iniciada correctamente")
+    toast.success("Sesión iniciada correctamente")
     router.push(callbackUrl)
     router.refresh()
   }
@@ -52,13 +52,13 @@ function LoginForm() {
           <Link href="/" className="mx-auto mb-2 text-2xl font-bold text-primary">
             Last Bite
           </Link>
-          <CardTitle className="text-xl">Iniciar sesion</CardTitle>
+          <CardTitle className="text-xl">Iniciar sesión</CardTitle>
           <CardDescription>Accede a tu cuenta para gestionar reservas y bolsas</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <Label htmlFor="email">Correo electronico</Label>
+              <Label htmlFor="email">Correo electrónico</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
@@ -73,9 +73,9 @@ function LoginForm() {
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password">Contrasena</Label>
+                <Label htmlFor="password">Contraseña</Label>
                 <Link href="#" className="text-xs text-primary hover:underline">
-                  Olvidaste tu contrasena?
+                  ¿Olvidaste tu contraseña?
                 </Link>
               </div>
               <div className="relative">
@@ -92,14 +92,14 @@ function LoginForm() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                  aria-label={showPassword ? "Ocultar contrasena" : "Mostrar contrasena"}
+                  aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
             <Button type="submit" className="mt-2 w-full" disabled={loading}>
-              {loading ? "Iniciando sesion..." : "Iniciar sesion"}
+              {loading ? "Iniciando sesión..." : "Iniciar sesión"}
             </Button>
           </form>
           <div className="my-4 flex items-center gap-3">
@@ -127,7 +127,7 @@ function LoginForm() {
         </CardContent>
         <CardFooter className="justify-center">
           <p className="text-sm text-muted-foreground">
-            No tienes cuenta?{" "}
+            ¿No tienes cuenta?{" "}
             <Link href="/auth/registro" className="font-medium text-primary hover:underline">
               Registrate
             </Link>

@@ -153,7 +153,7 @@ function SearchPageInner() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="rating">Mejor valorados</SelectItem>
-              <SelectItem value="reviews">Mas resenas</SelectItem>
+              <SelectItem value="reviews">Más reseñas</SelectItem>
               <SelectItem value="price_asc">Precio: menor a mayor</SelectItem>
               <SelectItem value="price_desc">Precio: mayor a menor</SelectItem>
             </SelectContent>

@@ -115,7 +115,7 @@ export default function BagsPage() {
           <div className="py-16 text-center">
             <Leaf className="mx-auto h-10 w-10 text-muted-foreground/50" />
             <p className="mt-3 text-lg font-medium text-foreground">No hay bolsas disponibles</p>
-            <p className="mt-1 text-sm text-muted-foreground">Vuelve mas tarde para ver nuevas bolsas sorpresa</p>
+            <p className="mt-1 text-sm text-muted-foreground">Vuelve más tarde para ver nuevas bolsas sorpresa</p>
           </div>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

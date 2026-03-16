@@ -55,7 +55,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
         <div className="flex items-center justify-between border-b border-border px-4 py-4 lg:py-5">
           <div>
             <p className="text-sm font-semibold text-foreground">El Sabor de Casa</p>
-            <p className="text-xs text-muted-foreground">Panel de gestion</p>
+            <p className="text-xs text-muted-foreground">Panel de gestión</p>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -106,7 +106,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
           >
             <Menu className="h-5 w-5" />
           </button>
-          <span className="ml-3 text-sm font-semibold text-foreground">Panel de gestion</span>
+          <span className="ml-3 text-sm font-semibold text-foreground">Panel de gestión</span>
         </div>
         <div className="flex-1 overflow-auto p-4 pb-24 md:p-6 lg:p-8">{children}</div>
       </div>

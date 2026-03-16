@@ -66,7 +66,7 @@ export default function ManagerEstadisticasPage() {
             </div>
             <div>
               <p className="text-2xl font-bold text-foreground">{totalIngresos.toLocaleString()} EUR</p>
-              <p className="text-xs text-muted-foreground">Ingresos promocion</p>
+              <p className="text-xs text-muted-foreground">Ingresos promoción</p>
             </div>
           </CardContent>
         </Card>
@@ -112,7 +112,7 @@ export default function ManagerEstadisticasPage() {
         {/* Top promotions */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Promociones mas utilizadas</CardTitle>
+            <CardTitle className="text-base">Promociones más utilizadas</CardTitle>
             <CardDescription>Ranking por numero de usos</CardDescription>
           </CardHeader>
           <CardContent>
@@ -154,11 +154,11 @@ export default function ManagerEstadisticasPage() {
                 <span className="text-sm font-semibold text-foreground">3.2 personas</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Hora mas popular</span>
+                <span className="text-sm text-muted-foreground">Hora más popular</span>
                 <span className="text-sm font-semibold text-foreground">14:00 - 15:00</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Dia mas popular</span>
+                <span className="text-sm text-muted-foreground">Día más popular</span>
                 <span className="text-sm font-semibold text-foreground">Sabados</span>
               </div>
               <div className="flex items-center justify-between">

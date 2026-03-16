@@ -121,7 +121,7 @@ export default function ReservationPage({ params }: { params: Promise<{ id: stri
               {selectedPromo && (
                 <div className="rounded-lg bg-accent/10 p-3">
                   <p className="text-sm font-medium text-foreground">
-                    Promocion aplicada: {selectedPromo.name} (-{selectedPromo.discount}%)
+                    Promoción aplicada: {selectedPromo.name} (-{selectedPromo.discount}%)
                   </p>
                 </div>
               )}
@@ -249,7 +249,7 @@ export default function ReservationPage({ params }: { params: Promise<{ id: stri
               <div>
                 <Label className="flex items-center gap-2 text-sm font-medium">
                   <Tag className="h-4 w-4 text-accent" />
-                  Promocion (opcional)
+                  Promoción (opcional)
                 </Label>
                 <div className="mt-2 flex flex-col gap-2">
                   <Button
@@ -258,7 +258,7 @@ export default function ReservationPage({ params }: { params: Promise<{ id: stri
                     onClick={() => setPromotion("")}
                     className="justify-start"
                   >
-                    Sin promocion
+                    Sin promoción
                   </Button>
                   {activePromos.map((p) => (
                     <Button
@@ -303,7 +303,7 @@ export default function ReservationPage({ params }: { params: Promise<{ id: stri
               <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1" />
             </div>
             <div>
-              <Label htmlFor="phone">Telefono</Label>
+              <Label htmlFor="phone">Teléfono</Label>
               <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-1" />
             </div>
             <div>
@@ -365,7 +365,7 @@ export default function ReservationPage({ params }: { params: Promise<{ id: stri
             <div className="rounded-lg border border-border p-4 text-sm">
               <p className="text-foreground"><strong>Nombre:</strong> {name}</p>
               <p className="text-foreground"><strong>Email:</strong> {email}</p>
-              <p className="text-foreground"><strong>Telefono:</strong> {phone}</p>
+              <p className="text-foreground"><strong>Teléfono:</strong> {phone}</p>
               {notes && <p className="mt-1 text-muted-foreground"><strong>Notas:</strong> {notes}</p>}
             </div>
             <div className="flex gap-2 self-end">

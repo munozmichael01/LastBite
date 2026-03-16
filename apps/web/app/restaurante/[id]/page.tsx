@@ -78,7 +78,7 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
               <div className="flex items-center gap-1.5">
                 <Star className="h-5 w-5 fill-accent text-accent" />
                 <span className="text-lg font-bold text-foreground">{restaurant.rating}</span>
-                <span className="text-sm text-muted-foreground">({restaurant.reviewCount} resenas)</span>
+                <span className="text-sm text-muted-foreground">({restaurant.reviewCount} reseñas)</span>
               </div>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
@@ -185,7 +185,7 @@ export default async function RestaurantDetailPage({ params }: { params: Promise
             {/* Reviews */}
             <div className="mt-8">
               <h3 className="text-lg font-semibold text-foreground">
-                Resenas ({reviews.length})
+                Reseñas ({reviews.length})
               </h3>
               {avgAspects && (
                 <div className="mt-3 grid grid-cols-2 gap-3 rounded-lg border border-border bg-card p-4 sm:grid-cols-4">

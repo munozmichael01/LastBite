@@ -109,7 +109,7 @@ export default function ProfilePage() {
             </div>
           </div>
           <div>
-            <Label htmlFor="profile-phone">Telefono</Label>
+            <Label htmlFor="profile-phone">Teléfono</Label>
             <div className="relative mt-1">
               <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input

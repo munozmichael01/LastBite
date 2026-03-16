@@ -115,12 +115,12 @@ export default function ManagerPromocionesPage() {
         return { ...p, status: newStatus }
       })
     )
-    toast.success("Estado de la promocion actualizado")
+    toast.success("Estado de la promoción actualizado")
   }
 
   function deletePromo(id: string) {
     setPromotions((prev) => prev.filter((p) => p.id !== id))
-    toast.success("Promocion eliminada")
+    toast.success("Promoción eliminada")
   }
 
   function handleCreate(e: React.FormEvent<HTMLFormElement>) {
@@ -140,7 +140,7 @@ export default function ManagerPromocionesPage() {
     }
     setPromotions((prev) => [newPromo, ...prev])
     setDialogOpen(false)
-    toast.success("Promocion creada correctamente")
+    toast.success("Promoción creada correctamente")
   }
 
   const activeCount = promotions.filter((p) => p.status === "active").length
@@ -154,26 +154,26 @@ export default function ManagerPromocionesPage() {
             Promociones
           </h1>
           <p className="text-sm text-muted-foreground">
-            {activeCount} promocion{activeCount !== 1 ? "es" : ""} activa{activeCount !== 1 ? "s" : ""}
+            {activeCount} promoción{activeCount !== 1 ? "es" : ""} activa{activeCount !== 1 ? "s" : ""}
           </p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="mr-2 h-4 w-4" />
-              Nueva promocion
+              Nueva promoción
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Crear promocion</DialogTitle>
+              <DialogTitle>Crear promoción</DialogTitle>
               <DialogDescription>
-                Crea una nueva promocion para atraer mas comensales.
+                Crea una nueva promoción para atraer más comensales.
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleCreate} className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
-                <Label htmlFor="name">Nombre de la promocion</Label>
+                <Label htmlFor="name">Nombre de la promoción</Label>
                 <Input id="name" name="name" placeholder="Ej: Descuento almuerzo" required />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -210,7 +210,7 @@ export default function ManagerPromocionesPage() {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit">Crear promocion</Button>
+                <Button type="submit">Crear promoción</Button>
               </DialogFooter>
             </form>
           </DialogContent>

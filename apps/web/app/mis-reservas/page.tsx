@@ -45,7 +45,7 @@ export default function MisReservasPage() {
       <Tabs defaultValue="upcoming" className="mt-6">
         <TabsList>
           <TabsTrigger value="upcoming">
-            Proximas ({upcoming.length})
+            Próximas ({upcoming.length})
           </TabsTrigger>
           <TabsTrigger value="past">
             Pasadas ({past.length})
@@ -56,7 +56,7 @@ export default function MisReservasPage() {
           {upcoming.length === 0 ? (
             <div className="py-16 text-center">
               <CalendarDays className="mx-auto h-10 w-10 text-muted-foreground/50" />
-              <p className="mt-3 text-lg font-medium text-foreground">No tienes reservas proximas</p>
+              <p className="mt-3 text-lg font-medium text-foreground">No tienes reservas próximas</p>
               <p className="mt-1 text-sm text-muted-foreground">Busca un restaurante y haz tu primera reserva</p>
               <Link href="/buscar">
                 <Button className="mt-4">Buscar restaurantes</Button>

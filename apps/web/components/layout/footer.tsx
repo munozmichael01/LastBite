@@ -21,7 +21,7 @@ export function Footer() {
               <span className="text-base font-bold text-foreground">Last Bite</span>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Reserva mesa en los mejores restaurantes y rescata comida excedente a precios increibles.
+              Reserva mesa en los mejores restaurantes y rescata comida excedente a precios increíbles.
             </p>
           </div>
           <div>
@@ -43,7 +43,7 @@ export function Footer() {
           <div>
             <h4 className="mb-3 text-sm font-semibold text-foreground">Restaurantes</h4>
             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <li><Link href="/manager" className="hover:text-foreground">Panel de gestion</Link></li>
+              <li><Link href="/manager" className="hover:text-foreground">Panel de gestión</Link></li>
               <li><Link href="/manager/ficha" className="hover:text-foreground">Registra tu restaurante</Link></li>
             </ul>
           </div>

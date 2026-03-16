@@ -60,7 +60,7 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-2xl px-4 py-16 text-center md:py-24">
           <Badge variant="outline" className="mb-4 border-primary/30 text-primary">
             <TrendingUp className="mr-1.5 h-3 w-3" />
-            Nuevo en Madrid y Barcelona
+            Ahora en Caracas
           </Badge>
 
           <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
@@ -68,7 +68,7 @@ export default function HomePage() {
           </h1>
 
           <p className="mt-4 text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-            Descubre los mejores restaurantes con promociones exclusivas y rescata comida excedente a precios increibles.
+            Descubre los mejores restaurantes con promociones exclusivas y rescata comida excedente a precios increíbles.
           </p>
 
           <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">

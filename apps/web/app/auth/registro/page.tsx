@@ -23,7 +23,7 @@ export default function RegistroPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!accepted) {
-      toast.error("Debes aceptar los terminos y condiciones")
+      toast.error("Debes aceptar los términos y condiciones")
       return
     }
 
@@ -104,21 +104,21 @@ export default function RegistroPage() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="email-c">Correo electronico</Label>
+                  <Label htmlFor="email-c">Correo electrónico</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input id="email-c" name="email-c" type="email" placeholder="tu@email.com" className="pl-10" required />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="telefono-c">Telefono</Label>
+                  <Label htmlFor="telefono-c">Teléfono</Label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <Input id="telefono-c" name="telefono-c" type="tel" placeholder="+34 600 000 000" className="pl-10" />
+                    <Input id="telefono-c" name="telefono-c" type="tel" placeholder="+58 412 000 0000" className="pl-10" />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="password-c">Contrasena</Label>
+                  <Label htmlFor="password-c">Contraseña</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
@@ -130,7 +130,7 @@ export default function RegistroPage() {
                     />
                     <button type="button" onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                      aria-label={showPassword ? "Ocultar contrasena" : "Mostrar contrasena"}>
+                      aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}>
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
@@ -139,9 +139,9 @@ export default function RegistroPage() {
                   <Checkbox id="terms-c" checked={accepted} onCheckedChange={(v) => setAccepted(v === true)} />
                   <Label htmlFor="terms-c" className="text-xs leading-relaxed text-muted-foreground">
                     Acepto los{" "}
-                    <Link href="#" className="text-primary hover:underline">terminos y condiciones</Link>{" "}
+                    <Link href="#" className="text-primary hover:underline">términos y condiciones</Link>{" "}
                     y la{" "}
-                    <Link href="#" className="text-primary hover:underline">politica de privacidad</Link>
+                    <Link href="#" className="text-primary hover:underline">política de privacidad</Link>
                   </Label>
                 </div>
                 <Button type="submit" className="mt-1 w-full" disabled={loading}>
@@ -165,21 +165,21 @@ export default function RegistroPage() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="email-r">Correo electronico</Label>
+                  <Label htmlFor="email-r">Correo electrónico</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input id="email-r" name="email-r" type="email" placeholder="restaurante@email.com" className="pl-10" required />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="telefono-r">Telefono</Label>
+                  <Label htmlFor="telefono-r">Teléfono</Label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <Input id="telefono-r" name="telefono-r" type="tel" placeholder="+34 900 000 000" className="pl-10" />
+                    <Input id="telefono-r" name="telefono-r" type="tel" placeholder="+58 212 000 0000" className="pl-10" />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor="password-r">Contrasena</Label>
+                  <Label htmlFor="password-r">Contraseña</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
@@ -191,7 +191,7 @@ export default function RegistroPage() {
                     />
                     <button type="button" onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                      aria-label={showPassword ? "Ocultar contrasena" : "Mostrar contrasena"}>
+                      aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}>
                       {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
@@ -200,9 +200,9 @@ export default function RegistroPage() {
                   <Checkbox id="terms-r" checked={accepted} onCheckedChange={(v) => setAccepted(v === true)} />
                   <Label htmlFor="terms-r" className="text-xs leading-relaxed text-muted-foreground">
                     Acepto los{" "}
-                    <Link href="#" className="text-primary hover:underline">terminos y condiciones</Link>{" "}
+                    <Link href="#" className="text-primary hover:underline">términos y condiciones</Link>{" "}
                     y la{" "}
-                    <Link href="#" className="text-primary hover:underline">politica de privacidad</Link>
+                    <Link href="#" className="text-primary hover:underline">política de privacidad</Link>
                   </Label>
                 </div>
                 <Button type="submit" className="mt-1 w-full" disabled={loading}>

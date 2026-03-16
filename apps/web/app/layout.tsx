@@ -12,7 +12,7 @@ const _inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 export const metadata: Metadata = {
   title: "Last Bite | Reserva y Rescata",
   description:
-    "Reserva mesa en los mejores restaurantes y rescata comida excedente a precios increibles.",
+    "Reserva mesa en los mejores restaurantes y rescata comida excedente a precios increíbles.",
 }
 
 export const viewport: Viewport = {
