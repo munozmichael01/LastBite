@@ -2,6 +2,16 @@
 // Last Bite — Mock Data (Caracas, Venezuela)
 // ============================================================
 
+export interface DataSource {
+  foundOnMaps: boolean
+  addressVerified: boolean
+  phoneVerified: boolean
+  hoursVerified: boolean
+  ratingVerified: boolean
+  menuVerified: boolean
+  notes: string
+}
+
 export interface Restaurant {
   id: string
   name: string
@@ -25,6 +35,8 @@ export interface Restaurant {
   gallery: string[]
   lat: number
   lng: number
+  /** Trazabilidad del scraping — qué datos fueron verificados en Google Maps */
+  dataSource?: DataSource
 }
 
 export interface Promotion {
@@ -143,17 +155,27 @@ export const restaurants: Restaurant[] = [
     address: "Av. Eugenio Mendoza, Transversal 1, La Castellana",
     city: "Caracas",
     neighborhood: "La Castellana",
-    phone: "+58 212 263 4521",
+    phone: "+58 414 230 6120",
     description: "Restaurante gourmet especializado en carnes a la parrilla y aves. Ambiente de dos niveles con terraza. Destacan el pollo rostizado, Angus beef y acompañamientos como arepas y cachapas.",
     coverGradient: "from-stone-600 via-stone-500 to-amber-700",
     image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&h=500&fit=crop&q=80",
     features: ["Terraza", "Bar", "WiFi", "Estacionamiento", "Grupos"],
     hours: [
       { day: "Lun-Jue", open: "11:30", close: "22:00" },
-      { day: "Vie-Sab", open: "08:30", close: "00:00" },
+      { day: "Vie", open: "11:30", close: "23:45" },
+      { day: "Sab", open: "08:30", close: "23:45" },
       { day: "Dom", open: "08:30", close: "22:00" },
     ],
     dietaryOptions: ["Sin gluten"],
+    dataSource: {
+      foundOnMaps: true,
+      addressVerified: true,
+      phoneVerified: true,
+      hoursVerified: true,
+      ratingVerified: true,
+      menuVerified: true,
+      notes: "Verificado en Google Maps. Teléfono móvil activo confirmado.",
+    },
     promotions: [
       {
         id: "p1",
@@ -209,16 +231,25 @@ export const restaurants: Restaurant[] = [
     priceRange: 2,
     rating: 4.5,
     reviewCount: 380,
-    address: "3a Avenida entre 3a y 4a Transversal, Los Palos Grandes",
+    address: "3ra Avenida con 4ta Transversal, Los Palos Grandes",
     city: "Caracas",
     neighborhood: "Los Palos Grandes",
-    phone: "+58 212 285 7744",
+    phone: "+58 212 285 3103",
     description: "Cocina farm-to-table con vegetales organicos de su propia huerta. Pan artesanal diario y preparaciones caseras. Desayunos, brunch, sopas y platos a la parrilla.",
     coverGradient: "from-green-500 via-emerald-500 to-teal-600",
     image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop&q=80",
     features: ["Terraza", "WiFi", "Bar"],
-    hours: [{ day: "Lun-Dom", open: "08:00", close: "18:00" }],
+    hours: [{ day: "Mie-Dom", open: "08:00", close: "18:00" }],
     dietaryOptions: ["Vegetariano", "Vegano", "Sin gluten"],
+    dataSource: {
+      foundOnMaps: true,
+      addressVerified: true,
+      phoneVerified: true,
+      hoursVerified: true,
+      ratingVerified: false,
+      menuVerified: true,
+      notes: "Cerrado lunes y martes, verificado en Maps. Concepto 'Hecho en Casa' con huerto en azotea.",
+    },
     promotions: [
       {
         id: "p2",
@@ -344,13 +375,25 @@ export const restaurants: Restaurant[] = [
     address: "Av. El Bosque con 4ta Transversal, Altamira",
     city: "Caracas",
     neighborhood: "Altamira",
-    phone: "+58 212 263 1022",
+    phone: "+58 424 237 5954",
     description: "Sushi y Japanese Steak House con nueve estaciones de teppanyaki. Teppan Lunch en horario de almuerzo. Entregas sin minimo los jueves.",
     coverGradient: "from-red-600 via-rose-500 to-pink-500",
     image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&h=500&fit=crop&q=80",
     features: ["Bar", "WiFi", "Grupos", "Estacionamiento"],
-    hours: [{ day: "Lun-Dom", open: "12:00", close: "23:00" }],
+    hours: [
+      { day: "Dom-Mie", open: "12:00", close: "23:00" },
+      { day: "Jue-Sab", open: "12:00", close: "00:00" },
+    ],
     dietaryOptions: ["Sin gluten", "Vegetariano"],
+    dataSource: {
+      foundOnMaps: true,
+      addressVerified: true,
+      phoneVerified: true,
+      hoursVerified: true,
+      ratingVerified: false,
+      menuVerified: true,
+      notes: "Teléfono móvil verificado. Jue-Sab cierra a medianoche según Maps.",
+    },
     promotions: [
       {
         id: "p4",
@@ -794,6 +837,8 @@ export const restaurants: Restaurant[] = [
     lng: -66.8528,
   },
   {
+    // ⚠️ PLACEHOLDER — Gemini v2 no encontró este restaurante en Google Maps
+    // Reemplazar con un restaurante real de Caracas antes del lanzamiento
     id: "11",
     name: "The Grand",
     slug: "the-grand",
@@ -859,8 +904,19 @@ export const restaurants: Restaurant[] = [
     ],
     lat: 10.4918,
     lng: -66.8575,
+    dataSource: {
+      foundOnMaps: false,
+      addressVerified: false,
+      phoneVerified: false,
+      hoursVerified: false,
+      ratingVerified: false,
+      menuVerified: false,
+      notes: "⚠️ No encontrado en Google Maps. Datos completamente inventados. Reemplazar antes del lanzamiento.",
+    },
   },
   {
+    // ⚠️ PLACEHOLDER — Gemini v2 no encontró este restaurante en Google Maps
+    // Reemplazar con un restaurante real de Caracas antes del lanzamiento
     id: "12",
     name: "Creperia Ana",
     slug: "creperia-ana",
@@ -923,6 +979,15 @@ export const restaurants: Restaurant[] = [
     ],
     lat: 10.4925,
     lng: -66.8588,
+    dataSource: {
+      foundOnMaps: false,
+      addressVerified: false,
+      phoneVerified: false,
+      hoursVerified: false,
+      ratingVerified: false,
+      menuVerified: false,
+      notes: "⚠️ No encontrado en Google Maps. Datos completamente inventados. Reemplazar antes del lanzamiento.",
+    },
   },
   {
     id: "13",
@@ -932,9 +997,9 @@ export const restaurants: Restaurant[] = [
     priceRange: 4,
     rating: 4.6,
     reviewCount: 340,
-    address: "Calle Veracruz con Calle Orinoco, Las Mercedes",
+    address: "1ra Avenida con 3ra Transversal, Los Palos Grandes",
     city: "Caracas",
-    neighborhood: "Las Mercedes",
+    neighborhood: "Los Palos Grandes",
     phone: "+58 212 993 7788",
     description: "Restaurante de cocina de autor en Las Mercedes. Platos elaborados con productos de primera. Terraza y bar con vista. Ideal para ocasiones especiales.",
     coverGradient: "from-indigo-700 via-purple-600 to-pink-600",
