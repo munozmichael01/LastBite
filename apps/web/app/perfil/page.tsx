@@ -13,13 +13,16 @@ import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { currentUser } from "@/lib/mock-data"
 import { toast } from "sonner"
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 
 const allDietary = ["Sin gluten", "Vegetariano", "Vegano", "Sin lactosa", "Sin frutos secos", "Pescetariano"]
 
 export default function ProfilePage() {
-  const [name, setName] = useState(currentUser.name)
-  const [email, setEmail] = useState(currentUser.email)
+  const { data: session } = useSession()
+  const sessionUser = session?.user
+
+  const [name, setName] = useState(sessionUser?.name ?? currentUser.name)
+  const [email, setEmail] = useState(sessionUser?.email ?? currentUser.email)
   const [phone, setPhone] = useState(currentUser.phone)
   const [dietary, setDietary] = useState(currentUser.dietaryPreferences)
 
@@ -33,7 +36,7 @@ export default function ProfilePage() {
       <div className="flex items-center gap-4">
         <Avatar className="h-16 w-16">
           <AvatarFallback className="bg-primary text-xl font-bold text-primary-foreground">
-            {currentUser.avatar}
+            {(sessionUser?.name ?? currentUser.name).split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
         <div>

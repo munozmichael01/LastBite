@@ -101,7 +101,7 @@ function SearchPageInner() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
+    <div className="mx-auto max-w-7xl overflow-x-hidden px-4 py-8">
       <h1 className="text-2xl font-bold text-foreground md:text-3xl">Buscar restaurantes</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         {filtered.length} restaurante{filtered.length !== 1 ? "s" : ""} encontrado{filtered.length !== 1 ? "s" : ""}
@@ -147,7 +147,7 @@ function SearchPageInner() {
         <div className="flex items-center gap-2">
           <SearchFiltersSheet {...filterProps} />
           <Select value={sort} onValueChange={(v) => setSort(v as SortOption)}>
-            <SelectTrigger className="w-44">
+            <SelectTrigger className="w-36 sm:w-44">
               <ArrowUpDown className="mr-2 h-4 w-4" />
               <SelectValue />
             </SelectTrigger>
@@ -171,7 +171,7 @@ function SearchPageInner() {
             </Button>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
           </div>
         )}

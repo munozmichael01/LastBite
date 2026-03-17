@@ -4,14 +4,13 @@ import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
-import { Eye, EyeOff, Mail, Lock, User, Phone, AlertCircle } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, User, Phone, AlertCircle, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Checkbox } from "@/components/ui/checkbox"
-import { toast } from "sonner"
 
 export default function RegistroPage() {
   const router = useRouter()
@@ -20,6 +19,7 @@ export default function RegistroPage() {
   const [accepted, setAccepted] = useState(false)
   const [activeTab, setActiveTab] = useState<"cliente" | "restaurante">("cliente")
   const [formError, setFormError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -54,27 +54,44 @@ export default function RegistroPage() {
       if (!res.ok) {
         const msg = data.error ?? "Error al crear la cuenta"
         setFormError(msg)
-        toast.error(msg)
+
         return
       }
 
       const login = await signIn("credentials", { email, password, redirect: false })
-      if (login?.error) {
-        toast.success("¡Cuenta creada! Inicia sesión para continuar.")
-        router.push("/auth/login")
-        return
-      }
+      setSuccess(true)
 
-      toast.success("¡Cuenta creada correctamente! Bienvenido a Last Bite.")
-      router.push(activeTab === "restaurante" ? "/manager" : "/")
-      router.refresh()
+      setTimeout(() => {
+        if (login?.error) {
+          router.push("/auth/login")
+        } else {
+          router.push(activeTab === "restaurante" ? "/manager" : "/")
+          router.refresh()
+        }
+      }, 1500)
     } catch {
-      const msg = "Error de conexión. Verifica tu internet e inténtalo de nuevo."
-      setFormError(msg)
-      toast.error(msg)
+      setFormError("Error de conexión. Verifica tu internet e inténtalo de nuevo.")
     } finally {
       setLoading(false)
     }
+  }
+
+  if (success) {
+    return (
+      <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center px-4">
+        <Card className="w-full max-w-md text-center">
+          <CardContent className="flex flex-col items-center gap-4 py-12">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+              <CheckCircle2 className="h-8 w-8 text-green-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-foreground">¡Cuenta creada!</h2>
+              <p className="mt-1 text-sm text-muted-foreground">Bienvenido a Last Bite. Redirigiendo...</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (

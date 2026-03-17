@@ -2,10 +2,11 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Search, UtensilsCrossed, ShoppingBag, CalendarDays, User, Menu, X } from "lucide-react"
+import { Search, UtensilsCrossed, ShoppingBag, CalendarDays, User, Menu, X, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
+import { useSession, signOut } from "next-auth/react"
 
 const navLinks = [
   { href: "/", label: "Inicio", icon: UtensilsCrossed },
@@ -17,6 +18,9 @@ const navLinks = [
 export function Header() {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { data: session } = useSession()
+  const user = session?.user
+  const firstName = user?.name?.split(" ")[0] ?? null
 
   if (pathname.startsWith("/manager") || pathname.startsWith("/mesa") || pathname.startsWith("/cocina")) return null
 
@@ -49,17 +53,28 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Link href="/perfil">
-            <Button variant="ghost" size="sm" className="gap-2">
-              <User className="h-4 w-4" />
-              Maria
-            </Button>
-          </Link>
-          <Link href="/manager">
-            <Button variant="outline" size="sm">
-              Panel Restaurante
-            </Button>
-          </Link>
+          {user ? (
+            <>
+              <Link href="/perfil">
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <User className="h-4 w-4" />
+                  {firstName}
+                </Button>
+              </Link>
+              {(user as { role?: string }).role === "RESTAURANTE" && (
+                <Link href="/manager">
+                  <Button variant="outline" size="sm">Panel Restaurante</Button>
+                </Link>
+              )}
+            </>
+          ) : (
+            <Link href="/auth/login">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <User className="h-4 w-4" />
+                Iniciar sesión
+              </Button>
+            </Link>
+          )}
         </div>
 
         <button
@@ -91,22 +106,44 @@ export function Header() {
               </Link>
             ))}
             <div className="my-2 border-t border-border" />
-            <Link
-              href="/perfil"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-            >
-              <User className="h-4 w-4" />
-              Mi Perfil
-            </Link>
-            <Link
-              href="/manager"
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-            >
-              <UtensilsCrossed className="h-4 w-4" />
-              Panel Restaurante
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  href="/perfil"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                >
+                  <User className="h-4 w-4" />
+                  {user.name ?? "Mi Perfil"}
+                </Link>
+                {(user as { role?: string }).role === "RESTAURANTE" && (
+                  <Link
+                    href="/manager"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+                  >
+                    <UtensilsCrossed className="h-4 w-4" />
+                    Panel Restaurante
+                  </Link>
+                )}
+                <button
+                  onClick={() => { setMobileOpen(false); signOut({ callbackUrl: "/" }) }}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-destructive hover:bg-destructive/10"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Cerrar sesión
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/auth/login"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                <User className="h-4 w-4" />
+                Iniciar sesión
+              </Link>
+            )}
           </nav>
         </div>
       )}
