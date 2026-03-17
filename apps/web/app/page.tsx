@@ -24,7 +24,7 @@ export default function HomePage() {
   const availableBags = surplusBags.filter((b) => b.status === "available")
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-x-hidden">
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10">
