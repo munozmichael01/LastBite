@@ -3,14 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Transpile workspace packages that export TypeScript directly
   transpilePackages: ["@lastbite/db"],
-  // Prevent Prisma from being bundled by webpack (needs native binary at runtime)
-  serverExternalPackages: ["@prisma/client", "@lastbite/db"],
-  // Ensure Prisma engine binary is included in serverless function traces
+  // Ensure Prisma engine binary (.so.node) is included in serverless bundle
+  // Points to the fixed custom output path defined in schema.prisma
   outputFileTracingIncludes: {
-    "/**": [
-      "../../node_modules/.pnpm/@prisma+client@*/node_modules/.prisma/client/**",
-      "../../node_modules/.pnpm/@prisma+client@*/node_modules/@prisma/client/**",
-    ],
+    "/**": ["../../packages/db/generated/client/**"],
   },
   images: {
     remotePatterns: [
