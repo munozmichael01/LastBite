@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import { Toaster } from "sonner"
+import { Providers } from "@/components/providers"
 import { Header } from "@/components/layout/header"
 import { MobileNav } from "@/components/layout/mobile-nav"
 import { Footer } from "@/components/layout/footer"
@@ -28,12 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased"><Providers>
         <Header />
         <main className="min-h-[calc(100vh-4rem)]">{children}</main>
         <Footer />
         <MobileNav />
-        <Toaster position="top-center" richColors />
+        <Toaster position="top-center" richColors /></Providers>
       </body>
     </html>
   )
