@@ -1,15 +1,3 @@
-import { PrismaClient } from "./generated/client";
-
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
-};
-
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
-  });
-
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
-
-export * from "./generated/client";
+// Schema and migrations live in packages/db/prisma/
+// The generated Prisma client is output to apps/web/generated/prisma/
+// Import { prisma } from "@/lib/prisma" in your Next.js app
