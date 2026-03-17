@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { currentUser } from "@/lib/mock-data"
 import { toast } from "sonner"
+import { signOut } from "next-auth/react"
 
 const allDietary = ["Sin gluten", "Vegetariano", "Vegano", "Sin lactosa", "Sin frutos secos", "Pescetariano"]
 
@@ -222,10 +223,10 @@ export default function ProfilePage() {
         <Button
           variant="ghost"
           className="text-destructive hover:text-destructive"
-          onClick={() => toast.info("Cerrando sesion... (demo)")}
+          onClick={() => signOut({ callbackUrl: "/" })}
         >
           <LogOut className="mr-2 h-4 w-4" />
-          Cerrar sesion
+          Cerrar sesión
         </Button>
       </div>
     </div>
