@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { RestaurantCard } from "@/components/restaurant-card"
 import { BagCard } from "@/components/bag-card"
-import { restaurants, surplusBags } from "@/lib/mock-data"
+import { getRestaurants, getActiveBags } from "@/lib/restaurant-service"
 
 const CUISINE_CATEGORIES = [
   { emoji: "🥩", label: "Parrilla",       gradient: "from-rose-50 to-red-100",      filter: "Parrilla" },
@@ -18,10 +18,15 @@ const CUISINE_CATEGORIES = [
   { emoji: "🌮", label: "Fusion",         gradient: "from-purple-50 to-pink-100",   filter: "Fusion" },
 ]
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [restaurants, bags] = await Promise.all([
+    getRestaurants(),
+    getActiveBags(),
+  ])
+
   const featuredRestaurants = restaurants.slice(0, 3)
   const nearbyRestaurants = restaurants.slice(3, 6)
-  const availableBags = surplusBags.filter((b) => b.status === "available")
+  const availableBags = bags.filter((b) => b.status === "available").slice(0, 4)
 
   return (
     <div className="flex flex-col overflow-x-hidden">
@@ -89,7 +94,7 @@ export default function HomePage() {
           {/* Stats */}
           <div className="mx-auto mt-10 flex items-center justify-center gap-6">
             <div className="text-center">
-              <p className="text-2xl font-bold text-foreground">500+</p>
+              <p className="text-2xl font-bold text-foreground">{restaurants.length}+</p>
               <p className="text-xs text-muted-foreground">Restaurantes</p>
             </div>
             <div className="h-8 w-px bg-border" />
@@ -99,8 +104,8 @@ export default function HomePage() {
             </div>
             <div className="h-8 w-px bg-border" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-secondary">12k</p>
-              <p className="text-xs text-muted-foreground">Bolsas rescatadas</p>
+              <p className="text-2xl font-bold text-secondary">{bags.length > 0 ? bags.length : "∞"}</p>
+              <p className="text-xs text-muted-foreground">Bolsas disponibles</p>
             </div>
           </div>
         </div>
@@ -128,70 +133,76 @@ export default function HomePage() {
       </section>
 
       {/* ── Restaurantes destacados ── */}
-      <section className="mx-auto w-full max-w-7xl px-4 py-12">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground">
-              <Star className="h-5 w-5 text-accent" />
-              Restaurantes destacados
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">Los mejor valorados con promociones activas</p>
-          </div>
-          <Link href="/buscar" className="hidden items-center gap-1 text-sm font-medium text-primary hover:underline sm:flex">
-            Ver todos <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredRestaurants.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
-        </div>
-        <div className="mt-4 text-center sm:hidden">
-          <Link href="/buscar">
-            <Button variant="ghost" size="sm" className="text-primary">
-              Ver todos <ArrowRight className="ml-1 h-4 w-4" />
-            </Button>
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Rescata comida ── */}
-      <section className="bg-secondary/5">
-        <div className="mx-auto max-w-7xl px-4 py-12">
+      {featuredRestaurants.length > 0 && (
+        <section className="mx-auto w-full max-w-7xl px-4 py-12">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground">
-                <Leaf className="h-5 w-5 text-secondary" />
-                Rescata comida hoy
+                <Star className="h-5 w-5 text-accent" />
+                Restaurantes destacados
               </h2>
-              <p className="mt-1 text-sm text-muted-foreground">Bolsas sorpresa con hasta un 70% de descuento</p>
+              <p className="mt-1 text-sm text-muted-foreground">Los mejor valorados con promociones activas</p>
             </div>
-            <Link href="/bolsas" className="hidden items-center gap-1 text-sm font-medium text-secondary hover:underline sm:flex">
-              Ver todas <ArrowRight className="h-4 w-4" />
+            <Link href="/buscar" className="hidden items-center gap-1 text-sm font-medium text-primary hover:underline sm:flex">
+              Ver todos <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {availableBags.map((bag) => <BagCard key={bag.id} bag={bag} />)}
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredRestaurants.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
           </div>
-        </div>
-      </section>
+          <div className="mt-4 text-center sm:hidden">
+            <Link href="/buscar">
+              <Button variant="ghost" size="sm" className="text-primary">
+                Ver todos <ArrowRight className="ml-1 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* ── Rescata comida ── */}
+      {availableBags.length > 0 && (
+        <section className="bg-secondary/5">
+          <div className="mx-auto max-w-7xl px-4 py-12">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground">
+                  <Leaf className="h-5 w-5 text-secondary" />
+                  Rescata comida hoy
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">Bolsas sorpresa con hasta un 70% de descuento</p>
+              </div>
+              <Link href="/bolsas" className="hidden items-center gap-1 text-sm font-medium text-secondary hover:underline sm:flex">
+                Ver todas <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {availableBags.map((bag) => <BagCard key={bag.id} bag={bag} />)}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Cerca de ti ── */}
-      <section className="mx-auto w-full max-w-7xl px-4 py-12">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground">
-              <UtensilsCrossed className="h-5 w-5 text-primary" />
-              Cerca de ti
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">Restaurantes populares en tu zona</p>
+      {nearbyRestaurants.length > 0 && (
+        <section className="mx-auto w-full max-w-7xl px-4 py-12">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="flex items-center gap-2 text-2xl font-bold text-foreground">
+                <UtensilsCrossed className="h-5 w-5 text-primary" />
+                Cerca de ti
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">Restaurantes populares en tu zona</p>
+            </div>
+            <Link href="/buscar" className="hidden items-center gap-1 text-sm font-medium text-primary hover:underline sm:flex">
+              Ver todos <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-          <Link href="/buscar" className="hidden items-center gap-1 text-sm font-medium text-primary hover:underline sm:flex">
-            Ver todos <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {nearbyRestaurants.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
-        </div>
-      </section>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {nearbyRestaurants.map((r) => <RestaurantCard key={r.id} restaurant={r} />)}
+          </div>
+        </section>
+      )}
 
       {/* ── CTA ── */}
       <section className="bg-primary">
