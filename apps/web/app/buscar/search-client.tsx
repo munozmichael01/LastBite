@@ -12,6 +12,11 @@ import type { Restaurant } from "@/lib/mock-data"
 
 type SortOption = "rating" | "price_asc" | "price_desc" | "reviews"
 
+/** Remove diacritics and lowercase — allows "carbon" to match "Carbón" */
+function norm(s: string) {
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+}
+
 const CUISINE_CATEGORIES = [
   { emoji: "🥩", label: "Parrilla",       gradient: "from-rose-50 to-red-100",      value: "Parrilla" },
   { emoji: "🇻🇪", label: "Criolla",       gradient: "from-amber-50 to-yellow-100",  value: "Criolla" },
@@ -41,13 +46,13 @@ export function SearchPageClient({ restaurants }: { restaurants: Restaurant[] })
     let result = [...restaurants]
 
     if (query) {
-      const q = query.toLowerCase()
+      const q = norm(query)
       result = result.filter(
         (r) =>
-          r.name.toLowerCase().includes(q) ||
-          r.cuisine.some((c) => c.toLowerCase().includes(q)) ||
-          r.neighborhood.toLowerCase().includes(q) ||
-          r.city.toLowerCase().includes(q)
+          norm(r.name).includes(q) ||
+          r.cuisine.some((c) => norm(c).includes(q)) ||
+          norm(r.neighborhood).includes(q) ||
+          norm(r.city).includes(q)
       )
     }
 

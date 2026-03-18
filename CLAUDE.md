@@ -109,6 +109,8 @@ ResenaBolsa      → reseña post-bolsa
 | `carbon@lastbite.app` | `LastBite2026!` | RESTAURANTE | Restaurante Carbón completo: 3 turnos, 2 promos, 6 reservas, 2 plantillas bolsa, 3 publicaciones |
 | `test@lastbite.app` | `LastBite2026!` | CLIENTE | Usuario cliente básico |
 
+> ⚠️ **IMPORTANTE:** La contraseña es `LastBite2026!` (NO `password123`). Si el login falla silenciosamente, primero verificar `/api/health` para confirmar conectividad DB.
+
 ---
 
 ## Estado de páginas (mock vs real)

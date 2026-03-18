@@ -4,7 +4,7 @@ import { Suspense, useState } from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { signIn } from "next-auth/react"
-import { Eye, EyeOff, Mail, Lock } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -18,31 +18,47 @@ function LoginForm() {
   const callbackUrl = searchParams.get("callbackUrl") ?? "/"
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [loginError, setLoginError] = useState("")
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
+    setLoginError("")
 
     const form = e.currentTarget
     const email = (form.elements.namedItem("email") as HTMLInputElement).value
     const password = (form.elements.namedItem("password") as HTMLInputElement).value
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    })
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      })
 
-    setLoading(false)
+      setLoading(false)
 
-    if (result?.error) {
-      toast.error("Email o contraseña incorrectos")
-      return
+      if (!result || result.error || !result.ok) {
+        const msg = result?.error === "CredentialsSignin"
+          ? "Email o contraseña incorrectos"
+          : result?.error
+            ? `Error: ${result.error}`
+            : "No se pudo iniciar sesión. Inténtalo de nuevo."
+        setLoginError(msg)
+        toast.error(msg)
+        return
+      }
+
+      toast.success("Sesión iniciada correctamente")
+      router.push(callbackUrl)
+      router.refresh()
+    } catch (err) {
+      setLoading(false)
+      const msg = "Error de conexión. Verifica tu internet e inténtalo de nuevo."
+      setLoginError(msg)
+      toast.error(msg)
+      console.error("[login] error:", err)
     }
-
-    toast.success("Sesión iniciada correctamente")
-    router.push(callbackUrl)
-    router.refresh()
   }
 
   return (
@@ -57,6 +73,12 @@ function LoginForm() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            {loginError && (
+              <div className="flex items-start gap-2 rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>{loginError}</span>
+              </div>
+            )}
             <div className="flex flex-col gap-2">
               <Label htmlFor="email">Correo electrónico</Label>
               <div className="relative">
