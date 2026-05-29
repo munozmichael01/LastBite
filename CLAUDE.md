@@ -79,11 +79,11 @@ NEXTAUTH_URL       https://last-bite-web.vercel.app
 
 ### Local (`apps/web/.env.local`) — no commitear
 ```
-DATABASE_URL="postgresql://postgres.jglyfryxrptwapefnawx:LastBite-2026@aws-1-eu-west-3.pooler.supabase.com:6543/postgres?pgbouncer=true"
-DIRECT_URL="postgresql://postgres.jglyfryxrptwapefnawx:LastBite-2026@aws-1-eu-west-3.pooler.supabase.com:5432/postgres"
+DATABASE_URL="postgresql://postgres.<project-ref>:<password>@aws-1-eu-west-3.pooler.supabase.com:6543/postgres?pgbouncer=true"
+DIRECT_URL="postgresql://postgres.<project-ref>:<password>@aws-1-eu-west-3.pooler.supabase.com:5432/postgres"
 NEXTAUTH_URL="http://localhost:3000"
-AUTH_SECRET="uo3abpVIZMNOOkr182nSrMo05Egdhm5BrxWRLgp/Q4U="
-NEXTAUTH_SECRET="uo3abpVIZMNOOkr182nSrMo05Egdhm5BrxWRLgp/Q4U="
+AUTH_SECRET="<genera con: openssl rand -base64 32>"
+NEXTAUTH_SECRET="<mismo valor que AUTH_SECRET>"
 ```
 
 ---
